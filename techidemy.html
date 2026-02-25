@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECHIDEMY | Creative Director & Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            primary: '#6366f1', // Electric Indigo
+                            secondary: '#a855f7', // Deep Violet
+                            accent: '#ec4899', // Pink Accent
+                            dark: '#0a0a0c',
+                            light: '#f8fafc'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 12s infinite linear',
+                        'glow-pulse': 'glow-pulse 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(100px, -120px) scale(1.3)' },
+                            '66%': { transform: 'translate(-80px, 60px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        'glow-pulse': {
+                            '0%, 100%': { opacity: '0.4', filter: 'brightness(1)' },
+                            '50%': { opacity: '0.7', filter: 'brightness(1.3)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .dark .glass-panel {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+            backdrop-filter: blur(24px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.3) 100%);
+            backdrop-filter: blur(200px) saturate(180%);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(99, 102, 241, 0.1);
+        }
+
+        .glass-panel-glow:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+        }
+
+        .img-zoom {
+            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .project-card:hover .img-zoom {
+            transform: scale(1.15);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        .dark ::-webkit-scrollbar-track { background: #08080a; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
+        
+        .page-transition {
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        }
+        .page-hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    </style>
+</head>
+<body class="font-sans selection:bg-brand-primary/30 bg-brand-light dark:bg-brand-dark text-slate-900 dark:text-white overflow-x-hidden">
+
+    <!-- Background Decoration -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-brand-primary/10 dark:bg-brand-primary/20 rounded-full blur-[140px] animate-blob"></div>
+        <div class="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-brand-secondary/10 dark:bg-brand-secondary/20 rounded-full blur-[140px] animate-blob animation-delay-2000"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl px-8 py-4 glass-panel rounded-full flex justify-between items-center transition-all duration-500" id="navbar">
+        <a href="javascript:void(0)" onclick="navigateTo('home')" class="group">
+            <span class="font-black text-2xl tracking-tighter uppercase dark:text-white text-slate-900 group-hover:text-brand-primary transition-colors">Techidemy</span>
+        </a>
+        
+        <div class="hidden md:flex space-x-10 text-[11px] font-bold tracking-[0.2em] uppercase opacity-60 dark:opacity-50">
+            <a href="javascript:void(0)" onclick="navigateTo('home')" class="hover:text-brand-primary dark:hover:text-white transition-colors">Home</a>
+            <a href="#portfolio" class="hover:text-brand-primary dark:hover:text-white transition-colors">Works</a>
+            <a href="#contact" class="hover:text-brand-primary dark:hover:text-white transition-colors">Contact</a>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <button onclick="toggleTheme()" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-brand-primary/20 transition-all">
+                <svg id="theme-icon-dark" class="hidden w-5 h-5 text-brand-primary" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/></svg>
+                <svg id="theme-icon-light" class="hidden w-5 h-5 text-brand-secondary" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+            </button>
+            <a href="mailto:techidemy@gmail.com" class="px-7 py-3 bg-brand-primary text-white text-[11px] font-bold tracking-widest rounded-full hover:scale-105 transition-all shadow-lg shadow-brand-primary/20">HIRE US</a>
+        </div>
+    </nav>
+
+    <!-- Page Content Container -->
+    <main id="main-content">
+        <!-- HOME PAGE -->
+        <div id="home-page" class="page-transition">
+            <!-- Hero Section -->
+            <header class="relative pt-64 pb-24 px-6 hero-gradient">
+                <div class="max-w-7xl mx-auto flex flex-col items-center text-center">
+                    <div class="mb-8 px-6 py-2.5 glass-panel rounded-full text-[10px] font-extrabold tracking-[0.4em] text-brand-primary uppercase animate-glow-pulse">
+                        Techidemy Collective
+                    </div>
+                    <h1 class="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.9]">
+                        CRAFTING <span class="bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-clip-text text-transparent italic">DIGITAL</span><br/>MASTERY.
+                    </h1>
+                    <p class="max-w-3xl text-lg md:text-2xl opacity-70 dark:opacity-50 font-medium mb-14 leading-relaxed">
+                        Elite creative studio engineering the intersection of code and cinema. 
+                    </p>
+                    
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <a href="#portfolio" class="px-12 py-5 bg-slate-900 dark:bg-white text-white dark:text-black font-black text-sm tracking-widest rounded-2xl hover:bg-brand-primary hover:text-white transition-all hover:scale-105 shadow-2xl">EXPLORE WORK</a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Portfolio Grid -->
+            <section id="portfolio" class="py-24 px-6 max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                    <div class="max-w-xl">
+                        <h2 class="text-5xl font-black mb-6">High Fidelity <br/>Portfolio</h2>
+                        <p class="opacity-60 text-lg font-medium">Pushing boundaries in web architecture and cinematic production.</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <div class="h-[2px] w-24 bg-brand-primary/30 my-auto"></div>
+                        <span class="text-brand-primary font-black tracking-widest text-sm italic">EST 2021</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Project 1 -->
+                    <div class="project-card group glass-panel glass-panel-glow rounded-[3rem] p-5">
+                        <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 relative bg-brand-dark">
+                            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80" alt="Future Code" class="w-full h-full object-cover img-zoom mix-blend-screen opacity-70">
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-primary/60 to-transparent"></div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-brand-primary transition-colors">Digital Ecosystems</h3>
+                            <p class="opacity-60 text-sm leading-relaxed font-medium">Scalable web platforms designed for high-conversion performance.</p>
+                        </div>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="project-card group glass-panel glass-panel-glow rounded-[3rem] p-5">
+                        <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 relative bg-brand-dark">
+                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80" alt="Abstract Violet" class="w-full h-full object-cover img-zoom opacity-80">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brand-secondary/40 to-transparent"></div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-brand-secondary transition-colors">Cinematic Motion</h3>
+                            <p class="opacity-60 text-sm leading-relaxed font-medium">Premium 4K video storytelling for disruptive technology brands.</p>
+                        </div>
+                    </div>
+                    <!-- Project 3 -->
+                    <div class="project-card group glass-panel glass-panel-glow rounded-[3rem] p-5">
+                        <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 relative bg-brand-dark">
+                            <img src="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?w=800&q=80" alt="Neon Brand" class="w-full h-full object-cover img-zoom opacity-70">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/30 to-transparent"></div>
+                        </div>
+                        <div class="px-4 pb-4">
+                            <h3 class="text-2xl font-bold mb-3 group-hover:text-brand-accent transition-colors">Brand Identity</h3>
+                            <p class="opacity-60 text-sm leading-relaxed font-medium">Visual language systems built for the modern digital era.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PRIVACY PAGE -->
+        <div id="privacy-page" class="page-hidden page-transition pt-40 pb-24 px-6 max-w-4xl mx-auto">
+            <h1 class="text-5xl font-black mb-12">Privacy <span class="text-brand-primary">Policy</span></h1>
+            <div class="glass-panel rounded-[2rem] p-10 space-y-8 text-lg leading-relaxed opacity-80">
+                <p>Welcome to Techidemy. We value your privacy and are committed to protecting your personal data.</p>
+                <h3 class="text-2xl font-bold text-brand-primary">1. Data Collection</h3>
+                <p>We only collect information that you voluntarily provide to us via our contact forms (Name, Email, Project Details). This data is used solely to respond to your inquiries.</p>
+                <h3 class="text-2xl font-bold text-brand-primary">2. Data Usage</h3>
+                <p>Your data is never sold or shared with third parties. It is stored securely within our encrypted systems for the duration of our professional relationship.</p>
+                <h3 class="text-2xl font-bold text-brand-primary">3. Cookies</h3>
+                <p>Our website uses minimal essential cookies to remember your theme preferences (Light/Dark mode) and ensure the smooth operation of our interface.</p>
+            </div>
+            <button onclick="navigateTo('home')" class="mt-12 text-sm font-bold tracking-widest text-brand-primary flex items-center space-x-2">
+                <span>← BACK TO HOME</span>
+            </button>
+        </div>
+
+        <!-- TERMS PAGE -->
+        <div id="terms-page" class="page-hidden page-transition pt-40 pb-24 px-6 max-w-4xl mx-auto">
+            <h1 class="text-5xl font-black mb-12">Terms of <span class="text-brand-secondary">Service</span></h1>
+            <div class="glass-panel rounded-[2rem] p-10 space-y-8 text-lg leading-relaxed opacity-80">
+                <h3 class="text-2xl font-bold text-brand-secondary">1. Agreement</h3>
+                <p>By accessing Techidemy, you agree to comply with our professional standards and respect the intellectual property showcased on this platform.</p>
+                <h3 class="text-2xl font-bold text-brand-secondary">2. Intellectual Property</h3>
+                <p>All designs, codebases, and cinematic content displayed are the property of Techidemy unless otherwise stated. Unauthorized reproduction is strictly prohibited.</p>
+                <h3 class="text-2xl font-bold text-brand-secondary">3. Service Delivery</h3>
+                <p>Project timelines and deliverables are established via individual contracts. This website serves as a portfolio and preliminary point of contact.</p>
+            </div>
+            <button onclick="navigateTo('home')" class="mt-12 text-sm font-bold tracking-widest text-brand-secondary flex items-center space-x-2">
+                <span>← BACK TO HOME</span>
+            </button>
+        </div>
+
+        <!-- SHARED CONTACT SECTION -->
+        <div id="contact-shared">
+            <!-- Socials Section -->
+            <section class="py-24 px-6 max-w-4xl mx-auto text-center">
+                <h2 class="text-sm font-black uppercase tracking-[0.4em] opacity-30 mb-12 italic">Join the Collective</h2>
+                <div class="flex justify-center items-center gap-12">
+                    <a href="https://youtube.com/@techidemy" target="_blank" class="group transition-all hover:scale-125">
+                        <svg class="w-8 h-8 text-brand-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
+                    <a href="https://instagram.com/techidemy" target="_blank" class="group transition-all hover:scale-125">
+                        <svg class="w-8 h-8 text-brand-secondary" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://tiktok.com/@techidemy" target="_blank" class="group transition-all hover:scale-125">
+                        <svg class="w-8 h-8 text-brand-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.3-.85.51-1.44 1.43-1.58 2.41-.05.4-.04.81.01 1.21.26 1.13 1.26 1.99 2.42 2.09 1.14.07 2.3-.45 2.94-1.39.42-.65.65-1.4.65-2.16V0h.01z"/></svg>
+                    </a>
+                    <a href="https://linkedin.com/company/techidemy" target="_blank" class="group transition-all hover:scale-125">
+                        <svg class="w-8 h-8 text-brand-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Contact Form -->
+            <section id="contact" class="py-32 px-6">
+                <div class="max-w-5xl mx-auto glass-panel rounded-[4rem] p-12 md:p-20 text-center relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/20 blur-[100px]"></div>
+                    <h2 class="text-5xl md:text-7xl font-black mb-8 leading-none">Ready to <span class="text-brand-primary italic">Manifest?</span></h2>
+                    <p class="opacity-60 mb-16 text-xl max-w-2xl mx-auto">High-stakes digital transformation begins here.</p>
+                    
+                    <form action="mailto:techidemy@gmail.com" method="post" enctype="text/plain" class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
+                        <input type="text" name="name" placeholder="NAME" class="bg-slate-100 dark:bg-white/5 border border-brand-primary/10 rounded-3xl px-8 py-5 focus:border-brand-primary transition-all outline-none text-xs font-bold tracking-widest uppercase">
+                        <input type="email" name="email" placeholder="EMAIL" class="bg-slate-100 dark:bg-white/5 border border-brand-primary/10 rounded-3xl px-8 py-5 focus:border-brand-primary transition-all outline-none text-xs font-bold tracking-widest uppercase">
+                        <textarea name="message" rows="4" placeholder="PROJECT DESCRIPTION" class="md:col-span-2 bg-slate-100 dark:bg-white/5 border border-brand-primary/10 rounded-[2.5rem] px-8 py-6 focus:border-brand-primary transition-all outline-none text-xs font-bold tracking-widest uppercase"></textarea>
+                        <button type="submit" class="md:col-span-2 py-6 bg-brand-primary text-white font-black tracking-[0.4em] uppercase text-xs rounded-3xl hover:scale-[1.02] transition-all shadow-xl shadow-brand-primary/30"><a href="mailto:techidemy@gmail.com">INITIATE CONNECTION</a></button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-20 px-6 border-t border-brand-primary/10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="flex items-center space-x-4">
+                <span class="font-black text-2xl uppercase tracking-tighter">Techidemy</span>
+            </div>
+            
+            <p class="text-[10px] opacity-30 uppercase tracking-[0.3em] font-bold text-center">
+                &copy; 2026 Techidemy &middot; techidemy@gmail.com
+            </p>
+
+            <div class="flex space-x-8 text-[10px] font-black uppercase tracking-widest opacity-40">
+                <a href="javascript:void(0)" onclick="navigateTo('privacy')" class="hover:text-brand-primary transition-colors">Privacy</a>
+                <a href="javascript:void(0)" onclick="navigateTo('terms')" class="hover:text-brand-primary transition-colors">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // NAVIGATION LOGIC
+        function navigateTo(pageId) {
+            const home = document.getElementById('home-page');
+            const privacy = document.getElementById('privacy-page');
+            const terms = document.getElementById('terms-page');
+            
+            // Hide all
+            [home, privacy, terms].forEach(p => p.classList.add('page-hidden'));
+            
+            // Show target
+            const target = document.getElementById(`${pageId}-page`);
+            target.classList.remove('page-hidden');
+            
+            // Reset scroll
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // THEME LOGIC
+        function setTheme(theme) {
+            const darkIcon = document.getElementById('theme-icon-dark');
+            const lightIcon = document.getElementById('theme-icon-light');
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+                localStorage.theme = 'dark';
+            } else {
+                document.documentElement.classList.remove('dark');
+                lightIcon.classList.remove('hidden');
+                darkIcon.classList.add('hidden');
+                localStorage.theme = 'light';
+            }
+        }
+
+        function toggleTheme() {
+            setTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark');
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('py-3', 'shadow-2xl');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.remove('py-3', 'shadow-2xl');
+                nav.classList.add('py-4');
+            }
+        });
+    </script>
+</body>
+</html>
+
